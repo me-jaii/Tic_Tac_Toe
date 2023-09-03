@@ -21,26 +21,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         playerOneScore = findViewById(R.id.score_Player1);
         playerTwoScore = findViewById(R.id.score_Player2);
         playerStatus = findViewById(R.id.textStatus);
         reset = findViewById(R.id.btn_reset);
         playAgain = findViewById(R.id.btn_play_again);
-
-        // Initialize buttons
         for (int i = 0; i < buttons.length; i++) {
             String buttonID = "btn" + i;
             int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
             buttons[i] = findViewById(resID);
             buttons[i].setOnClickListener(this);
         }
-
         playerOneScoreCount = 0;
         playerTwoScoreCount = 0;
         playerOneActive = true;
         rounds = 0;
-
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 updatePlayerScore();
             }
         });
-
         playAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
     @Override
     public void onClick(View view) {
         if (!((Button) view).getText().toString().equals("")) {
@@ -66,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (checkWinner()) {
             return;
         }
-
         String buttonID = getResources().getResourceEntryName(view.getId());
         int gameStatePointer = Integer.parseInt(buttonID.substring(buttonID.length() - 1));
 
@@ -79,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ((Button) view).setTextColor(Color.parseColor("#70fc3a"));
             gameState[gameStatePointer] = 1;
         }
-
         rounds++;
 
         if (checkWinner()) {
@@ -98,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             playerOneActive = !playerOneActive;
         }
     }
-
     private boolean checkWinner() {
         boolean winnerResults = false;
         for (int[] winningPositions : winningPositions) {
@@ -110,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return winnerResults;
     }
-
     private void playAgain() {
         rounds = 0;
         playerOneActive = true;
@@ -120,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         playerStatus.setText("Status");
     }
-
     private void updatePlayerScore() {
         playerOneScore.setText(Integer.toString(playerOneScoreCount));
         playerTwoScore.setText(Integer.toString(playerTwoScoreCount));
